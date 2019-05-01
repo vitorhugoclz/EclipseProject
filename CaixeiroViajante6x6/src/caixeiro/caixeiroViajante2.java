@@ -1,12 +1,14 @@
 package caixeiro;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
-public class CaixeiroViajante {
+import java.util.Scanner;
+
+public class caixeiroViajante2 {
 	static int[][] matriz = new int[58][58];
 	static  ArrayList<Integer> disponiveis = new ArrayList<Integer>();
-	static int[] output = new int[matriz.length];
+	static ArrayList<Integer> output = new ArrayList<Integer>();
 	public static void main(String[] args) throws FileNotFoundException {
 		lerArquivo();
 		criaDisponiveis();
@@ -14,20 +16,18 @@ public class CaixeiroViajante {
 		calculaScore();
 	}
 	public static void vizinho() {
-		int linha = 0, coluna = 1, indice = 1, remover, size;
+		int linha = 0, coluna = 0, remover;
 		disponiveis.remove(disponiveis.indexOf(0));
 		while(disponiveis.size() != 0) {
 			coluna = buscaMenor(matriz[linha]); //busca menor disponivel na linha
-			output[indice] = coluna; //coloca o valor na saida
+			output.add(coluna);//coloca o valor na saida
 			
 			//remove valor colocado dos disponiveis
-			size = disponiveis.size();
 			remover = disponiveis.indexOf(coluna);
 			disponiveis.remove(remover);
 			
 			//faz as trocas de valores
-			linha = coluna;
-			indice++;			
+			linha = coluna;		
 		}
 	}
 	public static int buscaMenor(int[] lista) {
@@ -42,12 +42,12 @@ public class CaixeiroViajante {
 	}
 	public static void calculaScore() {
 		int score = 0, i;
-		for(i = 0;i < output.length - 1;i++) {
-			System.out.print(output[i] + " ");
-			score += matriz[output[i]][output[i + 1]];
+		for(i = 0;i < output.size() - 1;i++) {
+			System.out.print(output.get(i) + " ");
+			score += matriz[output.get(i)][output.get(i + 1)];
 		}
-		System.out.print(output[i]);
-		score += matriz[output[i]][output[0]];
+		System.out.print(output.get(i));
+		score += matriz[output.get(i)][output.get(0)];
 		System.out.println("\n" + score);
 	}
 	public static void criaDisponiveis() {
@@ -69,11 +69,4 @@ public class CaixeiroViajante {
 	            leitor.close();
 	        }
 	}
-	public static void exibeMatriz() {
-		for(int i = 0; i < matriz.length;i++) {
-			for(int j = 0; j < matriz[i].length;j++)
-				System.out.print(matriz[i][j] + " ");
-			System.out.println();
-		}
-	}
-}	
+}
