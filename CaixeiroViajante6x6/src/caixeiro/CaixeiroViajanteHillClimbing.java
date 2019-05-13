@@ -1,25 +1,91 @@
 package caixeiro;
 
+/*anotacoes de resultado
+ * melhor resultado possivel: 25.395
+ * vizinho mais 27384
+ * teste 1 26840 4x
+ * teste 2 26612 2x
+ * teste 3 26761
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
-public class CaixeiroViajante {
+
+public class CaixeiroViajanteHillClimbing {
 	static int[][] matriz = new int[58][58];
 	static ArrayList<Integer> disponiveis = new ArrayList<Integer>();
 	static int[] output = new int[matriz.length];
 	static int[] bestOutput = new int[matriz.length];
 	static int bestScore = 999999;
+
 	public static void main(String[] args) throws FileNotFoundException {
 		lerArquivo();
 		for (int i = 0; i < matriz.length; i++) {
 			criaDisponiveis();
 			vizinho(i);
-			calculaScore();
+			int score = calculaScore(output);
+			copiaMelhor(score, output);
 		}
+		copiaVetores(bestOutput, output);
+		hillClimbing(output);
 		exibeResultado();
 	}
+
+	public static void hillClimbing(int[] vetor) {
+		Random random = new Random();
+		int aux = 0, resultadoAnterior = bestScore, resultadoAtual, cont = 0;
+		int posicao1, posicao2;
+		for (int i = 0; i < 2000000; i++) {
+			posicao1 = random.nextInt(58);
+			posicao2 = random.nextInt(58);
+			aux = vetor[posicao1];
+			vetor[posicao1] = vetor[posicao2];
+			vetor[posicao2] = aux;
+			resultadoAtual = calculaScore(vetor);
+			if (resultadoAnterior > resultadoAtual) {
+				cont = 0;
+				if (bestScore > resultadoAtual) {
+					resultadoAnterior = resultadoAtual;
+					bestScore = resultadoAtual;
+					copiaVetores(vetor, bestOutput);
+				} else
+					resultadoAnterior = resultadoAtual;
+			} else if (resultadoAnterior == resultadoAtual)
+				cont++;
+			else {
+				cont = 0;
+				aux = vetor[posicao1];
+				vetor[posicao1] = vetor[posicao2];
+				vetor[posicao2] = aux;
+			}
+			if (cont == 4) {
+				cont = 0;
+				shufle(vetor);
+				resultadoAnterior = calculaScore(vetor);
+			}
+		}
+	}
+
+	public static void shufle(int[] vetor) {
+		Random random = new Random();
+		int aux, posicao1, posicao2;
+		for (int i = 0; i < 3; i++) {
+			posicao1 = random.nextInt(58);
+			posicao2 = random.nextInt(58);
+			aux = vetor[posicao1];
+			vetor[posicao1] = vetor[posicao2];
+			vetor[posicao2] = aux;
+		}
+	}
+
+	public static void copiaVetores(int[] vetorA, int[] vetorB) {
+		/* copia o valores do vetorA para vetorB */
+		for (int i = 0; i < vetorA.length; i++)
+			vetorB[i] = vetorA[i];
+	}
+
 	public static void vizinho(int i) {
 		int linha = i, coluna = 0, indice = 1, remover;
 		output[0] = i;
@@ -50,16 +116,20 @@ public class CaixeiroViajante {
 		return indice;
 	}
 
-	public static void calculaScore() {
+	public static int calculaScore(int[] vetor) {
 		int score = 0, i;
-		for (i = 0; i < output.length - 1; i++) {
-			score += matriz[output[i]][output[i + 1]];
+		for (i = 0; i < vetor.length - 1; i++) {
+			score += matriz[vetor[i]][vetor[i + 1]];
 		}
-		score += matriz[output[i]][output[0]];
-		if(bestScore > score) {
+		score += matriz[vetor[i]][vetor[0]];
+		return score;
+	}
+
+	public static void copiaMelhor(int score, int[] vetor) {
+		if (bestScore > score) {
 			bestScore = score;
-			for(i = 0;i < output.length; i++)
-				bestOutput[i] = output[i];
+			for (int i = 0; i < vetor.length; i++)
+				bestOutput[i] = vetor[i];
 		}
 	}
 
