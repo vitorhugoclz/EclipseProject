@@ -1,4 +1,4 @@
-package caixieroGuloso;
+package caixeiroGuloso;
 
 import java.util.*;
 import java.io.*;
@@ -31,64 +31,98 @@ public class caixeiro {
 		janela.setSize(400, 400);
 		janela.setTitle("Rotas");
 		janela.setVisible(true);
-	}
-	public static int[] buscaGulosa(int[] rotaAntiga) {
-		int[] novaRota = new int[rotaAntiga.length];
-		for(int i = 0;i < 2;i++) {
-			
+		Lista lista = converterVetorLista(bestOutput);
+		for (int i = 0; i < 800; i++) {
+			buscaGulosa(lista);
+			bestOutput = lista.converterListaVetor(lista.tamanho);
+			bestScore = calculaScore(bestOutput);
 		}
-		return novaRota;
+		System.out.println("FimFim");
 	}
-	
+
+	public static Lista buscaGulosa(Lista listaAntiga) {
+		Random random = new Random();
+		int indice = random.nextInt(matriz.length);
+		No removido = listaAntiga.remove(indice);
+		int i = 0, melhorPosicao = 0;
+		double menorDist = 99999.99;
+		for (No aux = listaAntiga.inicio; aux.prox != null; aux = aux.prox, i++) {
+			if (menorDist > matriz[removido.valor][aux.valor] && matriz[removido.valor][aux.valor] != 0.0) {
+				menorDist = matriz[removido.valor][aux.valor];
+				melhorPosicao = i;
+			}
+		}
+		listaAntiga.inserePosicao(melhorPosicao, removido);
+		return listaAntiga;
+	}
+
+	public static Lista converterVetorLista(int[] vetor) {
+		Lista lista = new Lista();
+		No no = new No();
+		no.valor = vetor[0];
+		lista.insere(no);
+		No aux = lista.inicio;
+		for (int i = 1; i < vetor.length; i++) {
+			no = new No();
+			no.valor = vetor[i];
+			lista.insere(no);
+		}
+		lista.tamanho = vetor.length;
+		return lista;
+	}
+
 	public static int[] vizinhoMaisProximo(int atual) {
 		int[] vetor = new int[matriz.length];
 		ArrayList<Integer> disponiveis = criarDisponiveis();
 		vetor[0] = atual;
-		disponiveis.remove( disponiveis.indexOf(atual) );
-		for(int i = 1;i < vetor.length && !disponiveis.isEmpty(); i++) {
+		disponiveis.remove(disponiveis.indexOf(atual));
+		for (int i = 1; i < vetor.length && !disponiveis.isEmpty(); i++) {
 			int prox = buscarMaisProximo(atual, disponiveis);
-			 vetor[i] = prox;
-			int remov =  disponiveis.indexOf(vetor[i]) ;
+			vetor[i] = prox;
+			atual = prox;
+			int remov = disponiveis.indexOf(vetor[i]);
 			disponiveis.remove(remov);
 		}
 		return vetor;
 	}
-	
+
 	public static int buscarMaisProximo(int linha, ArrayList<Integer> disponiveis) {
 		double menorDist = 999999.99;
 		int retorno = 0;
-		for(int i = 0;i < disponiveis.size(); i++) {
-			if(matriz[linha][disponiveis.get(i)] < menorDist) {
+		for (int i = 0; i < disponiveis.size(); i++) {
+			if (matriz[linha][disponiveis.get(i)] < menorDist) {
 				menorDist = matriz[linha][disponiveis.get(i)];
 				retorno = disponiveis.get(i);
 			}
 		}
 		return retorno;
 	}
-	
+
 	public static double calculaScore(int[] rota) {
 		double score = 0;
-		for (int i = 0; i < rota.length - 1; i++) {
+		int i;
+		for (i = 0; i < rota.length - 1; i++) {
 			score += matriz[rota[i]][rota[i + 1]];
 		}
+		score += matriz[rota[i]][rota[0]];
 		return score;
 	}
-	
+
 	public static ArrayList<Integer> criarDisponiveis() {
 		ArrayList<Integer> temp = new ArrayList<Integer>();
-		for(int i = 0;i < matriz.length; i++)
+		for (int i = 0; i < matriz.length; i++)
 			temp.add(i);
 		return temp;
-			
+
 	}
-	
+
 	public static int[] copiarRota(int[] vetorA) {
 		int[] vetorB = new int[vetorA.length];
 		for (int i = 0; i < vetorA.length && i < vetorB.length; i++)
 			vetorB[i] = vetorA[i];
 		return vetorB;
 	}
-	
+
 	public static void criaGrafo() {
 		double coordX, coordY;
 		double distanc = 0;
@@ -103,10 +137,10 @@ public class caixeiro {
 			}
 		}
 	}
-	
+
 	public static void lerArquivo() throws FileNotFoundException {
 
-		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\CaixeiroViajante6x6\\src\\caixieroGuloso\\cidadesCoordenadas.tsp";
+		String arquivoCSV = "/home/2018.1.08.023/eclipse-workspace/CaixeiroViajante/src/caixeiroGuloso/cidades.tsp";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
@@ -140,11 +174,11 @@ public class caixeiro {
 			}
 		}
 	}
-	
+
 	public static void printarRota(int[] vetor) {
-		for(int i = 0;i < vetor.length; i++)
+		for (int i = 0; i < vetor.length; i++)
 			System.out.print(vetor[i] + " ");
 		System.out.println("\n");
 	}
-	
+
 }
