@@ -2,15 +2,13 @@ package caixeiroGuloso;
 
 import java.util.*;
 import java.io.*;
-import java.math.*;
-import java.awt.*;
 import javax.swing.*;
-
 public class caixeiro {
 	static double[][] matriz;
 	static double[][] entrada;
 	static int[] bestOutput;
 	static double bestScore = 9999999.99;
+	static boolean flag = false;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		lerArquivo();
@@ -26,34 +24,47 @@ public class caixeiro {
 		}
 		printarRota(bestOutput);
 		System.out.println(bestScore);
+		//desenhaJanela(bestOutput, entrada);
 		System.out.println("Final");
-		JFrame janela = new JFrame();
-		janela.setSize(400, 400);
-		janela.setTitle("Rotas");
-		janela.setVisible(true);
-		Lista lista = converterVetorLista(bestOutput);
-		for (int i = 0; i < 800; i++) {
-			buscaGulosa(lista);
-			bestOutput = lista.converterListaVetor(lista.tamanho);
-			bestScore = calculaScore(bestOutput);
+		for (int i = 0; i < 8000; i++) {
+			Lista lista = converterVetorLista(bestOutput); // converte a melhor saida até agora para uma lista encadeada
+			buscaGulosa(lista); // faz a busca da melhor posicao
 		}
+		printarRota(bestOutput);
+		System.out.println(bestScore);
 		System.out.println("FimFim");
+		desenhaJanela(bestOutput, entrada);
 	}
 
-	public static Lista buscaGulosa(Lista listaAntiga) {
+	public static void desenhaJanela(int[] rota, double[][] matrizPontos) {
+		JFrame janela = new JFrame();
+		janela.setSize(650, 650);
+		janela.setTitle("Rotas");
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setVisible(true);
+		DesenharLinhas ponto = new DesenharLinhas(rota, matrizPontos);
+		janela.add(ponto);
+	}
+
+	public static void buscaGulosa(Lista listaAntiga) {
+		int[] vetor;
+		double scoreAtual;
 		Random random = new Random();
-		int indice = random.nextInt(matriz.length);
+		int indice = random.nextInt(listaAntiga.tamanho);
 		No removido = listaAntiga.remove(indice);
-		int i = 0, melhorPosicao = 0;
-		double menorDist = 99999.99;
-		for (No aux = listaAntiga.inicio; aux.prox != null; aux = aux.prox, i++) {
-			if (menorDist > matriz[removido.valor][aux.valor] && matriz[removido.valor][aux.valor] != 0.0) {
-				menorDist = matriz[removido.valor][aux.valor];
-				melhorPosicao = i;
+		int melhorPosic = 0, i;
+		for (i = 0;i < listaAntiga.tamanho; i++) {
+			listaAntiga.inserePosicao(i, removido);
+			vetor = listaAntiga.converterListaVetor(listaAntiga.tamanho);
+			scoreAtual = calculaScore(vetor);
+			if (bestScore > scoreAtual) {
+				bestScore = scoreAtual;
+				bestOutput = copiarRota(vetor);
+				melhorPosic = i;
 			}
+			removido = listaAntiga.remove(i);
 		}
-		listaAntiga.inserePosicao(melhorPosicao, removido);
-		return listaAntiga;
+		listaAntiga.inserePosicao(melhorPosic, removido);
 	}
 
 	public static Lista converterVetorLista(int[] vetor) {
@@ -61,7 +72,6 @@ public class caixeiro {
 		No no = new No();
 		no.valor = vetor[0];
 		lista.insere(no);
-		No aux = lista.inicio;
 		for (int i = 1; i < vetor.length; i++) {
 			no = new No();
 			no.valor = vetor[i];
@@ -140,7 +150,7 @@ public class caixeiro {
 
 	public static void lerArquivo() throws FileNotFoundException {
 
-		String arquivoCSV = "/home/2018.1.08.023/eclipse-workspace/CaixeiroViajante/src/caixeiroGuloso/cidades.tsp";
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\CaixeiroViajante6x6\\src\\caixeiroGuloso\\cidadesCoordenadas.tsp";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
