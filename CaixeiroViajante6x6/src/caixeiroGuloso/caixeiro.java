@@ -49,6 +49,7 @@ public class caixeiro {
 		janela.repaint();
 		printarRota(bestOutput);
 		System.out.println(bestScore);
+		System.out.println(calculaScore(bestOutput));
 		System.out.println("FimFim");
 	}
 
@@ -68,14 +69,14 @@ public class caixeiro {
 		int indice = random.nextInt(listaAntiga.tamanho);
 		No removido = listaAntiga.remove(indice);
 		int melhorPosic = 0, i;
-		for (i = 0; i < listaAntiga.tamanho; i++) {
+		for(i = 0;i < listaAntiga.tamanho; i++) {
 			listaAntiga.inserePosicao(i, removido);
-			vetor = listaAntiga.converterListaVetor(listaAntiga.tamanho);
+			vetor = listaAntiga.converterListaVetor(58);
 			scoreAtual = calculaScore(vetor);
-			if (bestScore > scoreAtual) {
+			if(scoreAtual < bestScore) {
+				melhorPosic = i;
 				bestScore = scoreAtual;
 				copiarRota(vetor, bestOutput);
-				melhorPosic = i;
 				janela.repaint();
 				try {
 					Thread.sleep(150);
