@@ -1,6 +1,7 @@
 package caixeiroGuloso;
 
 import java.util.*;
+import java.awt.Graphics;
 import java.io.*;
 import javax.swing.*;
 
@@ -15,27 +16,39 @@ public class caixeiro {
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 		lerArquivo();
 		criaGrafo();
-		for (int i = 0; i < matriz.length; i++) {
-
-			int[] rota = vizinhoMaisProximo(i);
-			double scoreAtual = calculaScore(rota);
+		int i = 0;
+		bestOutput = new int[matriz.length];
+		int[] rota = vizinhoMaisProximo(i);
+		double scoreAtual = calculaScore(rota);
+		copiarRota(rota, bestOutput);
+		desenhaJanela(bestOutput, entrada);
+		try {
+			Thread.sleep(150);
+		} catch (InterruptedException ex) {
+		}
+		for (i = 1; i < matriz.length; i++) {
+			rota = vizinhoMaisProximo(i);
+			scoreAtual = calculaScore(rota);
 			if (scoreAtual < bestScore) {
-				bestOutput = copiarRota(rota);
+				copiarRota(rota, bestOutput);
 				bestScore = scoreAtual;
+				janela.repaint();
+				try {
+					Thread.sleep(150);
+				} catch (InterruptedException ex) {
+				}
 			}
 		}
+
 		printarRota(bestOutput);
 		System.out.println(bestScore);
-		// desenhaJanela(bestOutput, entrada);
-		System.out.println("Final");
-		for (int i = 0; i < 8000; i++) {
+		for (i = 0; i < 8000; i++) {
 			Lista lista = converterVetorLista(bestOutput); // converte a melhor saida até agora para uma lista encadeada
 			buscaGulosa(lista); // faz a busca da melhor posicao
 		}
+		janela.repaint();
 		printarRota(bestOutput);
 		System.out.println(bestScore);
-		// for(int i = 0;i < 800;i++)
-		desenhaJanela(bestOutput, entrada);
 		System.out.println("FimFim");
 	}
 
@@ -61,8 +74,13 @@ public class caixeiro {
 			scoreAtual = calculaScore(vetor);
 			if (bestScore > scoreAtual) {
 				bestScore = scoreAtual;
-				bestOutput = copiarRota(vetor);
+				copiarRota(vetor, bestOutput);
 				melhorPosic = i;
+				janela.repaint();
+				try {
+					Thread.sleep(150);
+				} catch (InterruptedException ex) {
+				}
 			}
 			removido = listaAntiga.remove(i);
 		}
@@ -128,8 +146,7 @@ public class caixeiro {
 
 	}
 
-	public static int[] copiarRota(int[] vetorA) {
-		int[] vetorB = new int[vetorA.length];
+	public static int[] copiarRota(int[] vetorA, int vetorB[]) {
 		for (int i = 0; i < vetorA.length && i < vetorB.length; i++)
 			vetorB[i] = vetorA[i];
 		return vetorB;
@@ -189,7 +206,7 @@ public class caixeiro {
 
 	public static void printarRota(int[] vetor) {
 		for (int i = 0; i < vetor.length; i++)
-			System.out.print(vetor[i] + " ");
+			System.out.println(vetor[i] + " ");
 		System.out.println("\n");
 	}
 
