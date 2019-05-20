@@ -3,14 +3,16 @@ package caixeiroGuloso;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+
 public class caixeiro {
 	static double[][] matriz;
 	static double[][] entrada;
 	static int[] bestOutput;
 	static double bestScore = 9999999.99;
 	static boolean flag = false;
+	static JFrame janela = new JFrame();
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 		lerArquivo();
 		criaGrafo();
 		for (int i = 0; i < matriz.length; i++) {
@@ -24,7 +26,7 @@ public class caixeiro {
 		}
 		printarRota(bestOutput);
 		System.out.println(bestScore);
-		//desenhaJanela(bestOutput, entrada);
+		// desenhaJanela(bestOutput, entrada);
 		System.out.println("Final");
 		for (int i = 0; i < 8000; i++) {
 			Lista lista = converterVetorLista(bestOutput); // converte a melhor saida até agora para uma lista encadeada
@@ -32,12 +34,12 @@ public class caixeiro {
 		}
 		printarRota(bestOutput);
 		System.out.println(bestScore);
-		System.out.println("FimFim");
+		// for(int i = 0;i < 800;i++)
 		desenhaJanela(bestOutput, entrada);
+		System.out.println("FimFim");
 	}
 
-	public static void desenhaJanela(int[] rota, double[][] matrizPontos) {
-		JFrame janela = new JFrame();
+	public static void desenhaJanela(int[] rota, double[][] matrizPontos) throws InterruptedException {
 		janela.setSize(650, 650);
 		janela.setTitle("Rotas");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +55,7 @@ public class caixeiro {
 		int indice = random.nextInt(listaAntiga.tamanho);
 		No removido = listaAntiga.remove(indice);
 		int melhorPosic = 0, i;
-		for (i = 0;i < listaAntiga.tamanho; i++) {
+		for (i = 0; i < listaAntiga.tamanho; i++) {
 			listaAntiga.inserePosicao(i, removido);
 			vetor = listaAntiga.converterListaVetor(listaAntiga.tamanho);
 			scoreAtual = calculaScore(vetor);

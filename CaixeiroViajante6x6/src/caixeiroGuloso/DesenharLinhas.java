@@ -6,7 +6,6 @@ import java.awt.*;
 public class DesenharLinhas extends JPanel {
 	public int[] rota; //rota completa para imprimir
 	public double[][] matriz; //matriz das posicoes, aquele arquivo de entrada
-
 	public DesenharLinhas(int[] rota, double[][] matrizPontos) {
 		this.rota = rota; //inicializacao recebendo a rota
 		this.matriz = matrizPontos; //inicializacao rebendo o matrizEntrada
@@ -27,6 +26,9 @@ public class DesenharLinhas extends JPanel {
 			graphs.setColor(Color.RED); //coloca como cor vermelha
 			graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), (int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
 		}
+		graphs.setColor(Color.YELLOW);
+		graphs.fillOval((int) (this.matriz[this.rota[i - 1]][0] * 5 - 5), (int) (this.matriz[this.rota[i - 1]][1] * 5 - 5), 10, 10);
+		
 		for(i = 0;i < rota.length && j < rota.length; i++) {
 			graphs.setColor(Color.blue); //coloca como cor azul
 			graphs.drawLine((int) (this.matriz[this.rota[i]][0] * 5), (int) (this.matriz[this.rota[i]]                                                                                                   [1] * 5), (int) (this.matriz[rota[j]][0] * 5),
@@ -36,10 +38,11 @@ public class DesenharLinhas extends JPanel {
 			//as posicoes tirei da matriz de entrada segundo a rota			
 			j++;
 		}
-		graphs.setColor(Color.YELLOW);
-		graphs.fillOval((int) (this.matriz[this.rota[j - 1]][0] * 5 - 5), (int) (this.matriz[this.rota[j - 1]][1] * 5 - 5), 10, 10);
+		if(j == rota.length) {
 		graphs.setColor(Color.blue);
-		graphs.drawLine((int) (this.matriz[this.rota[j - 1]][0] * 5), (int) (this.matriz[this.rota[j - 1]][1] * 5), (int) (this.matriz[this.rota[0]][0] * 5),
+		graphs.drawLine((int) (this.matriz[this.rota[j - 1]][0] * 5),
+				(int) (this.matriz[this.rota[j - 1]][1] * 5), (int) (this.matriz[this.rota[0]][0] * 5),
 				(int) (this.matriz[this.rota[0]][1] * 5));
+		}
 	}
 }
