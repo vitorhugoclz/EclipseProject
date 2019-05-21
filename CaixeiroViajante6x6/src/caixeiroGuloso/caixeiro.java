@@ -23,7 +23,7 @@ public class caixeiro {
 		copiarRota(rota, bestOutput);
 		desenhaJanela(bestOutput, entrada);
 		try {
-			Thread.sleep(150);
+			Thread.sleep(350);
 		} catch (InterruptedException ex) {
 		}
 		for (i = 1; i < matriz.length; i++) {
@@ -34,74 +34,68 @@ public class caixeiro {
 				bestScore = scoreAtual;
 				janela.repaint();
 				try {
-					Thread.sleep(150);
+					Thread.sleep(350);
 				} catch (InterruptedException ex) {
 				}
 			}
 		}
-
-		printarRota(bestOutput);
-		System.out.println(bestScore);
-		for (i = 0; i < 8000; i++) {
-			Lista lista = converterVetorLista(bestOutput); // converte a melhor saida até agora para uma lista encadeada
-			buscaGulosa(lista); // faz a busca da melhor posicao
+		for(i = 0;i < 1500; i++) {
+			ArrayList lista = converterVetorLista(bestOutput);
+			buscaGulosa(lista);
 		}
-		janela.repaint();
 		printarRota(bestOutput);
 		System.out.println(bestScore);
-		System.out.println(calculaScore(bestOutput));
-		System.out.println("FimFim");
+
 	}
 
+	public static void buscaGulosa(ArrayList<Integer> lista) {
+		Random random = new Random();
+		int indice = random.nextInt(lista.size()), melhorPosic = 0;
+		int cidade = lista.remove(indice);
+		for (int i = 0; i < lista.size(); i++) {
+			lista.add(i, cidade);
+			double score = scoreLista(lista);
+			if(score < bestScore) {
+				bestScore = score;
+				copiaListaVetor(lista, bestOutput);
+				melhorPosic = i;
+				janela.repaint();
+				try {
+					Thread.sleep(350);
+				} catch (InterruptedException ex) {
+				}
+			}
+			lista.remove(i);
+		}
+		lista.add(melhorPosic, cidade);
+	}
+	public static void copiaListaVetor(ArrayList<Integer> lista, int[] rota) {
+		for(int i = 0;i < lista.size() && i < rota.length; i++)
+			rota[i] = lista.get(i);
+	}
+	public static double scoreLista(ArrayList<Integer> lista) {
+		double score = 0;
+		for(int i = 0;i < lista.size() - 1; i++)
+			score += matriz[lista.get(i)][lista.get(i + 1)];
+		score += matriz[lista.get(lista.size() - 1)][lista.get(0)];
+		return score;
+	}
 	public static void desenhaJanela(int[] rota, double[][] matrizPontos) throws InterruptedException {
 		janela.setSize(650, 650);
 		janela.setTitle("Rotas");
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setVisible(true);
-		DesenharLinhas ponto = new DesenharLinhas(rota, matrizPontos);
-		janela.add(ponto);
+		DesenharLinhas grafo = new DesenharLinhas(rota, matrizPontos);
+		janela.add(grafo);
 	}
 
-	public static void buscaGulosa(Lista listaAntiga) {
-		int[] vetor;
-		double scoreAtual;
-		Random random = new Random();
-		int indice = random.nextInt(listaAntiga.tamanho);
-		No removido = listaAntiga.remove(indice);
-		int melhorPosic = 0, i;
-		for(i = 0;i < listaAntiga.tamanho; i++) {
-			listaAntiga.inserePosicao(i, removido);
-			vetor = listaAntiga.converterListaVetor(58);
-			scoreAtual = calculaScore(vetor);
-			if(scoreAtual < bestScore) {
-				melhorPosic = i;
-				bestScore = scoreAtual;
-				copiarRota(vetor, bestOutput);
-				janela.repaint();
-				try {
-					Thread.sleep(150);
-				} catch (InterruptedException ex) {
-				}
-			}
-			removido = listaAntiga.remove(i);
-		}
-		listaAntiga.inserePosicao(melhorPosic, removido);
-	}
-
-	public static Lista converterVetorLista(int[] vetor) {
-		Lista lista = new Lista();
-		No no = new No();
-		no.valor = vetor[0];
-		lista.insere(no);
-		for (int i = 1; i < vetor.length; i++) {
-			no = new No();
-			no.valor = vetor[i];
-			lista.insere(no);
-		}
-		lista.tamanho = vetor.length;
+	public static ArrayList<Integer> converterVetorLista(int[] vetor) {
+		ArrayList<Integer> lista = new ArrayList<Integer>(vetor.length);
+		for (int i = 0; i < vetor.length; i++)
+			lista.add(vetor[i]);
 		return lista;
 	}
-
+	
 	public static int[] vizinhoMaisProximo(int atual) {
 		int[] vetor = new int[matriz.length];
 		ArrayList<Integer> disponiveis = criarDisponiveis();
@@ -170,7 +164,7 @@ public class caixeiro {
 
 	public static void lerArquivo() throws FileNotFoundException {
 
-		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\CaixeiroViajante6x6\\src\\caixeiroGuloso\\cidadesCoordenadas.tsp";
+		String arquivoCSV = "/home/2018.1.08.023/eclipse-workspace/CaixeiroViajante/src/caixeiroGuloso/cidades.tsp";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";

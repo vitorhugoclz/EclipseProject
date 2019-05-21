@@ -15,19 +15,30 @@ public class DesenharLinhas extends JPanel {
 	public void paintComponent(Graphics graphs) {
 		super.paintComponent(graphs);
 		this.setBackground(Color.WHITE);
-        
+        String numero = new String();
 		int  j = 1, i = 0;
 		graphs.setColor(Color.GREEN); //coloca como cor VERDE
-		graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), (int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
-		//desenha uma forma oval na posição passada
+		graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), 
+				(int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
+		numero = Integer.toString(rota[i]);
+		graphs.drawString(numero, (int) (this.matriz[this.rota[i]][0] * 5 + 5), 
+				(int) (this.matriz[this.rota[i]][1] * 5 + 5));
+		
+		//desenha uma forma oval na posiÃ§Ã£o passada
 		//graphs.fillOval(inteiro posicao no eixo x, inteiro posicao no eixo y, largura da forma, altura da forma
 		//passsei segundo a ordem da rota para ser desenhado
-		for (i = 1; i < rota.length; i++) { //itereção para desenhar as cidades
+		for (i = 1; i < rota.length; i++) { //itereÃ§Ã£o para desenhar as cidades
 			graphs.setColor(Color.RED); //coloca como cor vermelha
 			graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), (int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
+			numero = Integer.toString(rota[i]);
+			graphs.drawString(numero, (int) (this.matriz[this.rota[i]][0] * 5 + 5), 
+					(int) (this.matriz[this.rota[i]][1] * 5 + 5));
 		}
-		graphs.setColor(Color.YELLOW);
+		graphs.setColor(Color.BLACK);
 		graphs.fillOval((int) (this.matriz[this.rota[i - 1]][0] * 5 - 5), (int) (this.matriz[this.rota[i - 1]][1] * 5 - 5), 10, 10);
+		numero = Integer.toString(rota[i - 1]);
+		graphs.drawString(numero, (int) (this.matriz[this.rota[i - 1]][0] * 5 + 5), 
+				(int) (this.matriz[this.rota[i - 1]][1] * 5 + 5));
 		
 		for(i = 0;i < rota.length && j < rota.length; i++) {
 			graphs.setColor(Color.blue); //coloca como cor azul
@@ -38,11 +49,9 @@ public class DesenharLinhas extends JPanel {
 			//as posicoes tirei da matriz de entrada segundo a rota			
 			j++;
 		}
-		if(j == rota.length) {
 		graphs.setColor(Color.blue);
 		graphs.drawLine((int) (this.matriz[this.rota[j - 1]][0] * 5),
 				(int) (this.matriz[this.rota[j - 1]][1] * 5), (int) (this.matriz[this.rota[0]][0] * 5),
 				(int) (this.matriz[this.rota[0]][1] * 5));
-		}
 	}
 }
