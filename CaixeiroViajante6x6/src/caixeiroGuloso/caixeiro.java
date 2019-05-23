@@ -164,7 +164,7 @@ public class caixeiro {
 
 	public static void lerArquivo() throws FileNotFoundException {
 
-		String arquivoCSV = "/home/2018.1.08.023/eclipse-workspace/CaixeiroViajante/src/caixeiroGuloso/cidades.tsp";
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\CaixeiroViajante6x6\\src\\caixeiroGuloso\\cidadesCoordenadas.tsp";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
