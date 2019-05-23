@@ -56,9 +56,13 @@ public class OtimizacaoRota extends Observable implements Runnable {
 		return score;
 	}
 
-	public void estadoAlterado() {
-		setChanged();
-		notifyObservers();
+	private void estadoAlterado() {
+		this.setChanged();
+		this.notifyObservers();
+		try {
+			Thread.sleep(350);
+		} catch (InterruptedException ex) {
+		}
 	}
 	@Override
 	public void run() {
@@ -70,10 +74,6 @@ public class OtimizacaoRota extends Observable implements Runnable {
 				bestScore = scoreAtual;
 				Rota.copiaRota(rotaAtual);
 				this.estadoAlterado();
-				try {
-					Thread.sleep(350);
-				} catch (InterruptedException ex) {
-				}
 			}
 		}
 	}

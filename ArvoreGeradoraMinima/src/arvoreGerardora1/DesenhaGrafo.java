@@ -1,15 +1,18 @@
-package caixeiroOPT;
+package arvoreGerardora1;
 
-import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 
-public class DesenhaGrafo extends JPanel {
-	private double[][] matriz;
-	private int[] rota;
+import javax.swing.JPanel;
+
+public class DesenhaGrafo extends JPanel{
+	public double[][] matriz;
+	public Aresta[] rotaAGM;
+	
 	public DesenhaGrafo() throws FileNotFoundException {
 		matriz = Matrizes.getMatrizEntrada();
-		rota = Rota.getRota();
+		rotaAGM = RotaAGM.getRotaAGM();
 	}
 	@Override
 	public void paintComponent(Graphics graphs) {
@@ -17,30 +20,19 @@ public class DesenhaGrafo extends JPanel {
 		this.setBackground(Color.WHITE);
         String numero = new String();
 		int  j = 1, i = 0;
-		graphs.setColor(Color.GREEN); //coloca como cor VERDE
-		graphs.fillOval((int) (matriz[rota[i]][0] * 5 - 5), 
-				(int) (matriz[rota[i]][1] * 5 - 5), 10, 10);
-		numero = Integer.toString(rota[i]);
-		graphs.drawString(numero, (int) (matriz[rota[i]][0] * 5 + 5), 
-				(int) (matriz[this.rota[i]][1] * 5 + 5));
 		
 		//desenha uma forma oval na posição passada
 		//graphs.fillOval(inteiro posicao no eixo x, inteiro posicao no eixo y, largura da forma, altura da forma
 		//passsei segundo a ordem da rota para ser desenhado
-		for (i = 1; i < rota.length; i++) { //itereção para desenhar as cidades
+		for (i = 0; i < matriz.length; i++) {
 			graphs.setColor(Color.RED); //coloca como cor vermelha
-			graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), (int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
-			numero = Integer.toString(rota[i]);
-			graphs.drawString(numero, (int) (this.matriz[this.rota[i]][0] * 5 + 5), 
-					(int) (this.matriz[this.rota[i]][1] * 5 + 5));
+			graphs.fillOval((int) (this.matriz[i][0] * 5 - 5), (int) (this.matriz[i][1] * 5 - 5), 10, 10);
+			numero = Integer.toString(i);
+			graphs.drawString(numero, (int) (this.matriz[i][0] * 5 + 5), 
+					(int) (this.matriz[i][1] * 5 + 5));
 		}
-		graphs.setColor(Color.BLACK);
-		graphs.fillOval((int) (this.matriz[this.rota[i - 1]][0] * 5 - 5), (int) (this.matriz[this.rota[i - 1]][1] * 5 - 5), 10, 10);
-		numero = Integer.toString(rota[i - 1]);
-		graphs.drawString(numero, (int) (this.matriz[this.rota[i - 1]][0] * 5 + 5), 
-				(int) (this.matriz[this.rota[i - 1]][1] * 5 + 5));
 
-		for(i = 0;i < rota.length && j < rota.length; i++) {
+		/*for(i = 0;i < rota.length && j < rota.length; i++) {
 			graphs.setColor(Color.blue); //coloca como cor azul
 			graphs.drawLine((int) (this.matriz[this.rota[i]][0] * 5), (int) (this.matriz[this.rota[i]]                                                                                                   [1] * 5), (int) (this.matriz[rota[j]][0] * 5),
 					(int) (this.matriz[this.rota[j]][1] * 5));
@@ -52,6 +44,6 @@ public class DesenhaGrafo extends JPanel {
 		graphs.setColor(Color.blue);
 		graphs.drawLine((int) (this.matriz[this.rota[j - 1]][0] * 5),
 				(int) (this.matriz[this.rota[j - 1]][1] * 5), (int) (this.matriz[this.rota[0]][0] * 5),
-				(int) (this.matriz[this.rota[0]][1] * 5));
+				(int) (this.matriz[this.rota[0]][1] * 5));*/
 	}
 }
