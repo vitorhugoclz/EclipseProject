@@ -33,7 +33,6 @@ public class AGMKruskal extends Observable implements Runnable{
 				j++;
 			}
 		}
-		System.out.println("Teste");
 	}
 	
 	@Override

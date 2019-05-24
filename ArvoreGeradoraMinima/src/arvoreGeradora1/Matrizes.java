@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Matrizes {
 	private static double[][] matrizAdjacencia;
 	private static double[][] matrizEntrada;
+	private static String[][] matrizOperacoes;
 
 	private Matrizes() {
 
@@ -77,5 +78,47 @@ public class Matrizes {
 		if (matrizEntrada == null)
 			lerArquivo();
 		return matrizEntrada;
+	}
+
+	public static String[][] getMatrizOperacoes() {
+		if (matrizOperacoes == null)
+			leituraOperacoes();
+		return matrizOperacoes;
+	}
+
+	private static void leituraOperacoes() {
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\ArvoreGeradoraMinima\\src\\arvoreGeradora1\\operacoes.agm1";
+		BufferedReader br = null;
+		String linha = "";
+		String csvDivisor = ";";
+		try {
+			br = new BufferedReader(new FileReader(arquivoCSV));
+			linha = br.readLine();
+			int tamanho = Integer.parseInt(linha);
+			int i = 0;
+			matrizOperacoes = new String[tamanho][3];
+			while ((linha = br.readLine()) != null && i < matrizOperacoes.length) {
+
+				String[] texto;
+				texto = linha.split(csvDivisor);
+				for (int j = 0; j < texto.length && j < matrizOperacoes[i].length; j++) {
+					matrizOperacoes[i][j] = texto[j];
+				}
+				i++;
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
