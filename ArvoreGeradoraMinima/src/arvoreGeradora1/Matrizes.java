@@ -1,4 +1,4 @@
-package arvoreGerardora1;
+package arvoreGeradora1;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ public class Matrizes {
 	}
 
 	private static void lerArquivo() throws FileNotFoundException {
-		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\ArvoreGeradoraMinima\\src\\arvoreGerardora1\\pontos.agm1";
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\ArvoreGeradoraMinima\\src\\arvoreGeradora1\\pontos.agm1";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";

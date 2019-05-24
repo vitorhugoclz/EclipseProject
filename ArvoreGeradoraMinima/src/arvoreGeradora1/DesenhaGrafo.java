@@ -1,4 +1,4 @@
-package arvoreGerardora1;
+package arvoreGeradora1;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,8 +11,8 @@ public class DesenhaGrafo extends JPanel{
 	public Aresta[] rotaAGM;
 	
 	public DesenhaGrafo() throws FileNotFoundException {
-		matriz = Matrizes.getMatrizEntrada();
-		rotaAGM = RotaAGM.getRotaAGM();
+		this.matriz = Matrizes.getMatrizEntrada();
+		this.rotaAGM = RotaAGM.getRotaAGM();
 	}
 	@Override
 	public void paintComponent(Graphics graphs) {
@@ -21,7 +21,7 @@ public class DesenhaGrafo extends JPanel{
         String numero = new String();
 		int  j = 1, i = 0;
 		
-		//desenha uma forma oval na posiÃ§Ã£o passada
+		//desenha uma forma oval na posição passada
 		//graphs.fillOval(inteiro posicao no eixo x, inteiro posicao no eixo y, largura da forma, altura da forma
 		//passsei segundo a ordem da rota para ser desenhado
 		for (i = 0; i < matriz.length; i++) {
@@ -31,19 +31,14 @@ public class DesenhaGrafo extends JPanel{
 			graphs.drawString(numero, (int) (this.matriz[i][0] * 5 + 5), 
 					(int) (this.matriz[i][1] * 5 + 5));
 		}
-
-		/*for(i = 0;i < rota.length && j < rota.length; i++) {
-			graphs.setColor(Color.blue); //coloca como cor azul
-			graphs.drawLine((int) (this.matriz[this.rota[i]][0] * 5), (int) (this.matriz[this.rota[i]]                                                                                                   [1] * 5), (int) (this.matriz[rota[j]][0] * 5),
-					(int) (this.matriz[this.rota[j]][1] * 5));
-			//deseha uma linha entre as coordenadas passadas
+		graphs.setColor(Color.blue); //coloca como cor azul
+		for(i = 0;i < rotaAGM.length; i++) {
+			graphs.drawLine((int) (this.matriz[rotaAGM[i].saida][0] * 5),
+					(int) (this.matriz[rotaAGM[i].saida][1] * 5),
+					(int) (this.matriz[rotaAGM[i].chegada][0] * 5),
+					(int) (this.matriz[rotaAGM[i].chegada][1] * 5));
 			//graphs.drawLine(inteiro posicao eixo x, inteiro posicao no eixo y
-			//as posicoes tirei da matriz de entrada segundo a rota			
-			j++;
+			//as posicoes tirei da matriz de entrada segundo a rota		
 		}
-		graphs.setColor(Color.blue);
-		graphs.drawLine((int) (this.matriz[this.rota[j - 1]][0] * 5),
-				(int) (this.matriz[this.rota[j - 1]][1] * 5), (int) (this.matriz[this.rota[0]][0] * 5),
-				(int) (this.matriz[this.rota[0]][1] * 5));*/
 	}
 }

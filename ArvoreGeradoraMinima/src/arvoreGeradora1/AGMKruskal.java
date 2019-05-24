@@ -1,4 +1,4 @@
-package arvoreGerardora1;
+package arvoreGeradora1;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -17,9 +17,10 @@ public class AGMKruskal extends Observable implements Runnable{
 		ArrayList<Aresta> listaArestas= new ArrayList<Aresta>();
 		UnionFind unionFind = new UnionFind();
 		for(int i = 0;i < matrizAdj.length; i++) {
-			for(int j = 1 + i;j < matrizAdj.length; j++) {
+			for(int j = 0;j < matrizAdj[i].length; j++) {
 				Aresta aresta = new Aresta(i, j, matrizAdj[i][j]);
-				listaArestas.add(aresta);
+				if(aresta.peso != 0.0)
+					listaArestas.add(aresta);
 			}
 		}
 		Collections.sort(listaArestas);

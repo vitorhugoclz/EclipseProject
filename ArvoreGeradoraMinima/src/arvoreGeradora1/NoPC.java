@@ -1,4 +1,4 @@
-package arvoreGerardora1;
+package arvoreGeradora1;
 
 public class NoPC {
 	 int valor;

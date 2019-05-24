@@ -42,7 +42,9 @@ public class DesenhaGrafo extends JPanel {
 
 		for(i = 0;i < rota.length && j < rota.length; i++) {
 			graphs.setColor(Color.blue); //coloca como cor azul
-			graphs.drawLine((int) (this.matriz[this.rota[i]][0] * 5), (int) (this.matriz[this.rota[i]]                                                                                                   [1] * 5), (int) (this.matriz[rota[j]][0] * 5),
+			graphs.drawLine((int) (this.matriz[this.rota[i]][0] * 5),
+					(int) (this.matriz[this.rota[i]][1] * 5),
+					(int) (this.matriz[this.rota[j]][0] * 5),
 					(int) (this.matriz[this.rota[j]][1] * 5));
 			//deseha uma linha entre as coordenadas passadas
 			//graphs.drawLine(inteiro posicao eixo x, inteiro posicao no eixo y

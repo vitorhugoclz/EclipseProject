@@ -1,8 +1,6 @@
-package arvoreGerardora1;
+package arvoreGeradora1;
 
-import java.io.FileNotFoundException;
-
-public class Aresta implements Comparable{
+public class Aresta implements Comparable<Object>{
 	public int saida;
 	public int chegada;
 	public double peso;
@@ -17,6 +15,8 @@ public class Aresta implements Comparable{
 		Aresta vizinha = (Aresta) v;
 		if(this.peso < vizinha.peso)
 			return -1;
+		if(this.peso > vizinha.peso)
+			return 1;
 		return 0;
 	}
 }
