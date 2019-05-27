@@ -11,7 +11,8 @@ public class caixeiro {
 		janela.add(grafo);
 		OtimizacaoRota otimizacao = new OtimizacaoRota();
 		otimizacao.addObserver(janela);
-		otimizacao.run();
+		Thread thread = new Thread(otimizacao);
+		thread.start();
 		System.out.println();
 	}
 }

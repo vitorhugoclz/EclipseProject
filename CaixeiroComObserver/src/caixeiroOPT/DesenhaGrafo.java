@@ -24,10 +24,10 @@ public class DesenhaGrafo extends JPanel {
 		graphs.drawString(numero, (int) (matriz[rota[i]][0] * 5 + 5), 
 				(int) (matriz[this.rota[i]][1] * 5 + 5));
 		
-		//desenha uma forma oval na posiÃ§Ã£o passada
+		//desenha uma forma oval na posição passada
 		//graphs.fillOval(inteiro posicao no eixo x, inteiro posicao no eixo y, largura da forma, altura da forma
 		//passsei segundo a ordem da rota para ser desenhado
-		for (i = 1; i < rota.length; i++) { //itereÃ§Ã£o para desenhar as cidades
+		for (i = 1; i < rota.length; i++) { //itereção para desenhar as cidades
 			graphs.setColor(Color.RED); //coloca como cor vermelha
 			graphs.fillOval((int) (this.matriz[this.rota[i]][0] * 5 - 5), (int) (this.matriz[this.rota[i]][1] * 5 - 5), 10, 10);
 			numero = Integer.toString(rota[i]);
