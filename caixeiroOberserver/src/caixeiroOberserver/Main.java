@@ -11,7 +11,7 @@ public class Main {
 		int[] melhorRota = new int[Matrizes.getMatrizAdj().length];
 		double melhorScore = 99999999.99;
 		thread.start();
-		for(int i = 0;i < 500; i++) {
+		for(int i = 0;i < 800; i++) {
 			int[] rota = Rota.getRota();
 			double scoreAtual = calculaScore(rota);
 			if(scoreAtual < melhorScore && scoreAtual > 0.0) {
