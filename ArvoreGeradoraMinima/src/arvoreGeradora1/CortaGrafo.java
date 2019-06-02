@@ -13,8 +13,9 @@ public class CortaGrafo {
 		this.contOP = 0;
 	}
 	
-	public void alteraGrafo(int i) {
+	public boolean alteraGrafo(int i) throws FileNotFoundException {
 		String[] operacao = matrizOperacoes[i];
+		boolean flag = false;
 		if(operacao[0].intern() == "add") {
 			int linha = Integer.parseInt(operacao[1]);
 			int coluna = Integer.parseInt(operacao[2]);
@@ -26,6 +27,14 @@ public class CortaGrafo {
 				
 				//modificando matriz Lista de operacoes
 				this.arestasCortadas.add(operacao);
+				double pesoAtual = matrizAdj[coluna][linha];
+				Aresta[] rota = RotaAGM.getRotaAGM();
+				for(int j = 0;j < rota.length; j++) {
+					if(rota[j].peso > pesoAtual) {
+						flag = true;
+						break;
+					}
+				}
 			}
 		}
 		else {
@@ -33,13 +42,23 @@ public class CortaGrafo {
 			int coluna = Integer.parseInt(operacao[2]);
 			if(matrizAdj[linha][coluna] > 0.0) {
 				this.arestasCortadas.clear();
+				Aresta aresta = new Aresta(linha, coluna, matrizAdj[coluna][linha]);
 				matrizAdj[linha][coluna] = matrizAdj[linha][coluna] * -1;
 				matrizAdj[coluna][linha] = matrizAdj[coluna][linha] * -1;
 				
 				//modificando matriz Lista de operacoes
 				this.arestasCortadas.add(operacao);
+				
+				Aresta[] rota = RotaAGM.getRotaAGM();
+				for(int j = 0;j < rota.length; j++) {
+					if(rota[j].equals(aresta)) {
+						flag = true;
+						break;
+					}
+				}
 			}
 		}
+		return flag;
 	}
 	
 	public int getContOP() {

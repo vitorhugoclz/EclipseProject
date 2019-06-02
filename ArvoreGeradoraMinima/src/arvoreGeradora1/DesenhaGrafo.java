@@ -78,9 +78,11 @@ public class DesenhaGrafo extends JPanel {
 					l += 100;
 				}
 				String[] operacao = listaOp.get(i);
-				graphs.drawString(operacao[0] + ": ", 1000 + l, 40 + c);
-				graphs.drawString(operacao[1] + ", ", 1040 + l, 40 + c);
-				graphs.drawString(operacao[2], 1060 + l, 40 + c);
+				if (operacao != null) {
+					graphs.drawString(operacao[0] + ": ", 1000 + l, 40 + c);
+					graphs.drawString(operacao[1] + ", ", 1040 + l, 40 + c);
+					graphs.drawString(operacao[2], 1060 + l, 40 + c);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

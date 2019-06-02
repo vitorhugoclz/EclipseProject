@@ -10,6 +10,7 @@ public class AGMKruskal extends Observable implements Runnable {
 	private double[][] matrizAdj;
 	private boolean incial = true;
 	private int tempSleep = 12;
+
 	public AGMKruskal() throws FileNotFoundException {
 		this.rotaAGM = RotaAGM.getRotaAGM();
 		this.rotaAGMAnt = RotaAGM.getRotaAGMAnt();
@@ -56,33 +57,37 @@ public class AGMKruskal extends Observable implements Runnable {
 
 	@Override
 	public void run() {
+		double start = System.currentTimeMillis();
 		// TODO Auto-generated method stub
 		try {
 			CortaGrafo corta = new CortaGrafo();
 			this.algoritmo();
+			this.mudouEstado();
 			if (this.incial) {
 				RotaAGM.getRotaAGMAnt();
 				this.incial = false;
 			}
 			for (int i = 0; i < 3192; i++) {
-				corta.alteraGrafo(i);
-				RotaAGM.getRotaAGMAnt();
-				this.algoritmo();
-				this.abreFechaRota();
-				this.mudouEstado();
+				boolean flag = corta.alteraGrafo(i);
+				if (flag) {
+					RotaAGM.getRotaAGMAnt();
+					this.algoritmo();
+					this.abreFechaRota();
+					this.mudouEstado();
+				}
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(System.currentTimeMillis() - start);
 	}
 
 	private void mudouEstado() {
 		this.setChanged();
 		this.notifyObservers();
-		try {
-			Thread.sleep(tempSleep);
-		} catch (InterruptedException ex) {
-		}
+		/*
+		 * try { Thread.sleep(tempSleep); } catch (InterruptedException ex) { }
+		 */
 	}
 }

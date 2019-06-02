@@ -13,7 +13,7 @@ public class Matrizes {
 	private Matrizes() {
 
 	}
-
+	
 	private static void lerArquivo() throws FileNotFoundException {
 		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\ArvoreGeradoraMinima\\src\\arvoreGeradora1\\pontos.agm1";
 		BufferedReader br = null;

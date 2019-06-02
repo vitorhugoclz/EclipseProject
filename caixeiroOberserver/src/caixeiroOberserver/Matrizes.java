@@ -14,7 +14,7 @@ public class Matrizes {
 	}
 
 	private static void lerArquivo() throws FileNotFoundException {
-		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\CaixeiroComObserver\\src\\caixeiroOPT\\cidades.tsp";
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\caixeiroOberserver\\src\\caixeiroOberserver\\cidades.tsp";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
