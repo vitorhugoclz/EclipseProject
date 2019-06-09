@@ -9,8 +9,8 @@ public class Main {
 	static Container[] containers;
 
 	public static void main(String[] args) {
-		String ambiente = "src\\containersProjeto1\\enviroment_01.csv";
-		String produtos = "src\\containersProjeto1\\products_01.csv";
+		String ambiente = "src\\arquivos\\enviroment_01.csv";
+		String produtos = "src\\arquivos\\products_01.csv";
 
 		containers = LeituraArquivo.lerMeioAmbiente(ambiente);
 		listaOrdPeso = LeituraArquivo.lerProdutos(ambiente, produtos);
