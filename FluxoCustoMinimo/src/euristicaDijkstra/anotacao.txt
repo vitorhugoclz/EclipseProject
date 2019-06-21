@@ -1,0 +1,10 @@
+Vertex   Distance from Source
+0 tt 0
+1 tt 4
+2 tt 12
+3 tt 19
+4 tt 21
+5 tt 11
+6 tt 9
+7 tt 8
+8 tt 14
