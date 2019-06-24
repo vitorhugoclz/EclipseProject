@@ -12,11 +12,15 @@ public class Main {
 		int i = grafo.getConsumidor();
 		double soma = 0;
 		System.out.println(grafo.getConsumidor());
+		int menorFlux = Integer.MAX_VALUE;
 		while(pais[i] != -1) {
 			System.out.println(pais[i] + ": " + grafo.getPeso(pais[i], i));
 			soma += grafo.getPeso(pais[i], i);
+			if(matrizFluxo[pais[i]][i].getCapFluxo() < menorFlux)
+				menorFlux = matrizFluxo[pais[i]][i].getCapFluxo();
 			i = pais[i];
 		}
 		System.out.println(soma);
+		System.out.println(menorFlux);
 	}
 }
