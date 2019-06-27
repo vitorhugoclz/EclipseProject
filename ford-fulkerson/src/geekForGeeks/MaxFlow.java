@@ -7,7 +7,7 @@ import java.util.LinkedList;
   
 class MaxFlow 
 { 
-    static final int V = 6;    //Number of vertices in graph 
+    static final int V = 8;    //Number of vertices in graph 
   
     /* Retorna true se houver um caminho aumentante da fonte 'produtor' ate
       'consumidor' no gráfico residual. Também preenche o pai [] para armazenar o
@@ -85,14 +85,14 @@ class MaxFlow
                 u = parent[v]; 
                 path_flow = Math.min(path_flow, rGraph[u][v]); 
             } 
-  
+            System.out.println(path_flow);
             // update residual capacities of the edges and 
             // reverse edges along the path 
             for (v=t; v != s; v=parent[v]) 
             { 
                 u = parent[v]; 
                 rGraph[u][v] -= path_flow; 
-                rGraph[v][u] += path_flow; 
+                //rGraph[v][u] += path_flow; 
             } 
   
             // Add path flow to overall flow 
@@ -107,17 +107,19 @@ class MaxFlow
     public static void main (String[] args) throws java.lang.Exception 
     { 
         // Let us create a graph shown in the above example 
-        int graph[][] = new int[][] { {0, 16, 13, 0, 0, 0}, 
-                                     {0, 0, 10, 12, 0, 0}, 
-                                     {0, 4, 0, 0, 14, 0}, 
-                                     {0, 0, 9, 0, 0, 20}, 
-                                     {0, 0, 0, 7, 0, 4}, 
-                                     {0, 0, 0, 0, 0, 0} 
+        int graph[][] = new int[][] { {0, 10,8, 15, 0, 0, 0, 0}, 
+                                      {0, 0, 0, 0, 7, 10, 0, 0}, 
+                                      {0, 0, 0, 0, 0, 9, 7, 0}, 
+                                      {0, 0, 0, 0, 0, 6, 7, 0}, 
+                                      {0, 0, 0, 0, 0, 0, 0, 12}, 
+                                      {0, 0, 0, 0, 0, 0, 0, 13},
+                                      {0, 0, 0, 0, 0, 0, 0, 8},
+                                      {0, 0, 0, 0, 0, 0, 0, 0}
                                    }; 
         MaxFlow m = new MaxFlow(); 
   
         System.out.println("The maximum possible flow is " + 
-                           m.fordFulkerson(graph, 0, 5)); 
+                           m.fordFulkerson(graph, 0, 7)); 
   
     } 
 } 

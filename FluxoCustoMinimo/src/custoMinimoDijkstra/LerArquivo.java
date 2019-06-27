@@ -1,4 +1,4 @@
-package euristicaDijkstra;
+package custoMinimoDijkstra;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LerArquivo {
-	public static Aresta[][] lerArquivo() {
-		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\FluxoCustoMinimo\\src\\euristicaDijkstra\\entrada.txt";
+	public static Grafo lerArquivo() {
+		String arquivoCSV = "C:\\Users\\Vitor\\eclipse-workspace\\EclipseProject\\FluxoCustoMinimo\\src\\custoMinimoDijkstra\\entrada.txt";
 		BufferedReader br = null;
 		String linha = "";
 		String csvDivisor = ",";
@@ -31,14 +31,12 @@ public class LerArquivo {
 					String[] valores = texto[j].split(csvDivisor2);
 					capFluxo = Integer.parseInt(valores[0]);
 					custFluxo = Integer.parseInt(valores[1]);
-					matrizEntrada[i][j] = new Aresta(capFluxo, custFluxo);
+					matrizEntrada[i][j] = new Aresta(capFluxo, custFluxo, capFluxo);
 				}
 				i++;
 			}
-			Grafo grafo = Grafo.getGrafo();
-			grafo.setConsumidor(consumidor);
-			grafo.setProdutor(produtor);
-			return matrizEntrada;
+			Grafo grafo = new Grafo(matrizEntrada, produtor, consumidor);
+			return grafo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
