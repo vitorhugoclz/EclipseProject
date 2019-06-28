@@ -8,7 +8,7 @@ public class FordFulkerson {
 		Dijkstra dijkstra = new Dijkstra();
 		while (dijkstra.dijkstraAlg(grafo, grafo.getProdutor(), pais) && fluxoMaximo < meta) {
 			double fluxoCaminho = fluxoMin(grafo, pais);
-			//System.out.println(fluxoCaminho);
+			System.out.println(fluxoCaminho);
 			if (fluxoCaminho + fluxoMaximo > meta)
 				fluxoCaminho = meta - fluxoMaximo;
 			atualizarGrafo(grafo, pais, fluxoCaminho);

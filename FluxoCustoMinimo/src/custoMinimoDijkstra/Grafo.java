@@ -56,7 +56,7 @@ public class Grafo {
 		matrizAdj[linha][coluna].setCapacAtual(novoValor);
 	}
 	private double funcaoCusto(Aresta aresta) {
-		//return aresta.getCapacAtual() * aresta.getCustoFluxo();
-		return 0.0;
+		return aresta.getCapacAtual() * aresta.getCustoFluxo();
+		//return 0.0;
 	}
 }
