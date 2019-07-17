@@ -6,7 +6,7 @@ public class Main {
 	 *Vtir Hugo da Costa Luz 2018.1.08.023*/
 	public static void main(String[] args) throws InterruptedException, IOException {
 		while(true) {
-			System.out.println("Cada execucao sera separada \n não havendo relacao entre elas");
+			System.out.println("Cada execucao sera separada \n nao havendo relacao entre elas");
 			System.out.println("---------------");
 			System.out.println("|[1] FirstFit |");
 			System.out.println("|[2] NextFit  |");
