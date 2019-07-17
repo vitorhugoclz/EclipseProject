@@ -6,7 +6,7 @@ public class Main {
 	 *Vtir Hugo da Costa Luz 2018.1.08.023*/
 	public static void main(String[] args) throws InterruptedException, IOException {
 		while(true) {
-			System.out.println("Cada execução será separada \n não havendo relação entre elas");
+			System.out.println("Cada execucao sera separada \n não havendo relacao entre elas");
 			System.out.println("---------------");
 			System.out.println("|[1] FirstFit |");
 			System.out.println("|[2] NextFit  |");
@@ -18,25 +18,25 @@ public class Main {
 			int opcao = ler.nextInt();
 			if(opcao == 1) {
 				Memoria memoria = new Memoria(1024);
-				System.out.println("Execução do Algoritmo FirstFit");
+				System.out.println("Execucao do Algoritmo FirstFit");
 				AlgoritmoInsercao algoritmo = new FirstFit();
 				memoria.executar(algoritmo);
 				System.out.println("Fim execucao\n\n");
 			} else if(opcao == 2) {
 				Memoria memoria = new Memoria(1024);
-				System.out.println("Execução do Algoritmo NextFit");
+				System.out.println("Execucao do Algoritmo NextFit");
 				AlgoritmoInsercao algoritmo = new NextFit();
 				memoria.executar(algoritmo);
 				System.out.println("Fim execucao\n\n");
 			} else if(opcao == 3) {
 				Memoria memoria = new Memoria(1024);
-				System.out.println("Execução do Algoritmo BestFit");
+				System.out.println("Execucao do Algoritmo BestFit");
 				AlgoritmoInsercao algoritmo = new BestFit();
 				memoria.executar(algoritmo);
 				System.out.println("Fim execucao\n\n");
 			} else if(opcao == 4) {
 				Memoria memoria = new Memoria(1024);
-				System.out.println("Execução do Algoritmo WorstFit");
+				System.out.println("Execucao do Algoritmo WorstFit");
 				AlgoritmoInsercao algoritmo = new WorstFit();
 				memoria.executar(algoritmo);
 				System.out.println("Fim execucao\n\n");
@@ -45,7 +45,7 @@ public class Main {
 				System.out.println("Fechando");
 				break;
 			} else
-				System.out.println("Opção Inválida");
+				System.out.println("Opção Invalida");
 		}
 	}
 }

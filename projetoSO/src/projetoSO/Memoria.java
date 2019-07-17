@@ -35,7 +35,7 @@ public class Memoria {
 					tabelaProcessos.addProcesso(emEspera);
 					saidaTexto("Processo Inserido", emEspera);
 				} else {
-					System.out.println("Processo em espera não coube");
+					System.out.println("Processo em espera nao coube");
 					System.out.println("P[" + emEspera.getNumero() + "]:" + emEspera.getTamanho());
 					tabelaProcessos.addEspera(emEspera);
 				}
