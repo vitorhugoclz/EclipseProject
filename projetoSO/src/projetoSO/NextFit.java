@@ -38,7 +38,7 @@ public class NextFit implements AlgoritmoInsercao {
 			}
 		}
 		if(bloco != null) {
-			System.out.println("Posição Atual: " + posAtual);
+			System.out.println("Posicao Atual: " + posAtual);
 			this.posAtual = bloco.getFim() - 1;
 		}
 		return bloco;

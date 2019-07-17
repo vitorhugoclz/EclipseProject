@@ -45,7 +45,7 @@ public class Main {
 				System.out.println("Fechando");
 				break;
 			} else
-				System.out.println("Opção Invalida");
+				System.out.println("Opcao Invalida");
 		}
 	}
 }
